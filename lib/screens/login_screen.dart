@@ -102,8 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
               constraints: const BoxConstraints(maxWidth: 420),
               child: Column(
                 children: [
-                  const Icon(Icons.auto_awesome,
-                      size: 64, color: AppColors.amarillo),
+                  const LogoSpark(tamano: 64),
                   const SizedBox(height: 8),
                   Text('Spark Point',
                       style: Theme.of(context).textTheme.displayLarge),
