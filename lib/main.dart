@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme/app_theme.dart';
+import 'screens/login_screen.dart';
 
 void main() {
   runApp(const SparkPointApp());
@@ -14,11 +15,7 @@ class SparkPointApp extends StatelessWidget {
       title: 'Spark Point',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.oscuro,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Spark Point'),
-        ),
-      ),
+      home: const LoginScreen(),
     );
   }
 }
