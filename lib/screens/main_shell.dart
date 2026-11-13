@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'home_screen.dart';
+import 'crear_screen.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -29,7 +30,11 @@ class _MainShellState extends State<MainShell> {
   Widget build(BuildContext context) {
     final List<Widget> pantallas = [
       HomeScreen(alCrear: () => irA(1)),
-      proximamente('Crear'),
+      CrearScreen(alGenerar: (tema, estilo) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Generando "$tema" en estilo ${estilo.nombre}...')),
+        );
+      }),
       proximamente('Carpetas'),
       proximamente('Perfil'),
     ];
