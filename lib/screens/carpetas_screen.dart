@@ -16,6 +16,7 @@ class CarpetasScreen extends StatefulWidget {
 
 class _CarpetasScreenState extends State<CarpetasScreen> {
   Carpeta? elegida;
+    String filtro = '';
 
   Future<void> nuevaCarpeta() async {
     final TextEditingController ctrl = TextEditingController();
@@ -64,6 +65,21 @@ class _CarpetasScreenState extends State<CarpetasScreen> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(texto)));
   }
 
+  /// Devuelve las carpetas que coinciden con el filtro:
+  /// por nombre de carpeta, o por tema/estilo de sus moodboards.
+  List<Carpeta> carpetasFiltradas() {
+    final String f = filtro.toLowerCase();
+    if (f.isEmpty) return Almacen.carpetas;
+
+    return Almacen.carpetas.where((c) {
+      final bool porNombre = c.nombre.toLowerCase().contains(f);
+      final bool porMoodboard = c.moodboards.any((m) =>
+          m.tema.toLowerCase().contains(f) ||
+          m.estilo.nombre.toLowerCase().contains(f));
+      return porNombre || porMoodboard;
+    }).toList();
+  }
+
   void guardarAqui() {
     final Carpeta? destino = elegida;
     final Moodboard? m = widget.porGuardar;
@@ -86,6 +102,8 @@ class _CarpetasScreenState extends State<CarpetasScreen> {
   @override
   Widget build(BuildContext context) {
     final bool modoGuardar = widget.porGuardar != null;
+
+    final List<Carpeta> visibles = carpetasFiltradas();
 
     return Scaffold(
       appBar: modoGuardar
@@ -113,6 +131,19 @@ class _CarpetasScreenState extends State<CarpetasScreen> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
+              TextField(
+                onChanged: (texto) {
+                  setState(() {
+                    filtro = texto.trim();
+                  });
+                },
+                decoration: const InputDecoration(
+                  hintText: 'Buscar proyecto, tema o estilo...',
+                  prefixIcon:
+                      Icon(Icons.search, color: AppColors.textoSecundario),
+                ),
+              ),
+              const SizedBox(height: 12),
               GestureDetector(
                 onTap: nuevaCarpeta,
                 child: Container(
@@ -133,11 +164,15 @@ class _CarpetasScreenState extends State<CarpetasScreen> {
               ),
               const SizedBox(height: 12),
               Expanded(
-                child: ListView.separated(
-                  itemCount: Almacen.carpetas.length,
+                child: visibles.isEmpty
+                    ? const Center(
+                        child: Text('No se encontraron proyectos.'),
+                      )
+                    : ListView.separated(
+                  itemCount: visibles.length,
                   separatorBuilder: (_, _) => const SizedBox(height: 10),
                   itemBuilder: (context, i) {
-                    final Carpeta c = Almacen.carpetas[i];
+                    final Carpeta c = visibles[i];
                     final bool activa = c == elegida;
                     return GestureDetector(
                       onTap: modoGuardar
