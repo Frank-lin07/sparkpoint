@@ -3,6 +3,7 @@ import '../models/moodboard.dart';
 import '../theme/app_colors.dart';
 import 'generando_screen.dart';
 import 'carpetas_screen.dart';
+import '../widgets/compartir_sheet.dart';
 
 class ResultadoScreen extends StatelessWidget {
   final Moodboard moodboard;
@@ -185,7 +186,7 @@ class ResultadoScreen extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               IconButton.filledTonal(
-                onPressed: () => proximamente(context, 'Compartir'),
+                onPressed: () => mostrarCompartir(context, moodboard),
                 icon: const Icon(Icons.share),
               ),
             ],
