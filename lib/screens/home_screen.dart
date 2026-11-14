@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/logo_spark.dart';
+import '../data/almacen.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback alCrear;
@@ -71,7 +72,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            Text('¡Hola, Franklin!',
+            Text('¡Hola, ${Almacen.usuarioActual?.nombre ?? 'diseñador'}!',
                 style: Theme.of(context).textTheme.headlineMedium),
             const SizedBox(height: 4),
             Text('¿Qué idea vamos a encender hoy?',

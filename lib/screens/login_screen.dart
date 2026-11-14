@@ -3,6 +3,7 @@ import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 import '../widgets/logo_spark.dart';
 import '../screens/main_shell.dart';
+import '../data/almacen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool esRegistro = false;
   bool ocultarClave = true;
+    String? error;
 
   final TextEditingController usuarioCtrl = TextEditingController();
   final TextEditingController correoCtrl = TextEditingController();
@@ -32,7 +34,66 @@ class _LoginScreenState extends State<LoginScreen> {
   void cambiarModo(bool registro) {
     setState(() {
       esRegistro = registro;
+      error = null;
     });
+  }
+
+    bool correoValido(String correo) {
+    return RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(correo);
+  }
+
+  void entrar(Usuario u) {
+    Almacen.usuarioActual = u;
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const MainShell()),
+    );
+  }
+
+  void enviar() {
+    final String usuario = usuarioCtrl.text.trim();
+    final String correo = correoCtrl.text.trim();
+    final String clave = claveCtrl.text;
+    final String confirmar = confirmarCtrl.text;
+
+    if (esRegistro) {
+      if (usuario.length < 3) {
+        setState(() => error = 'El usuario debe tener mínimo 3 caracteres.');
+        return;
+      }
+      if (!correoValido(correo)) {
+        setState(() => error = 'Escribe un correo válido.');
+        return;
+      }
+      if (clave.length < 6) {
+        setState(
+            () => error = 'La contraseña debe tener mínimo 6 caracteres.');
+        return;
+      }
+      if (clave != confirmar) {
+        setState(() => error = 'Las contraseñas no coinciden.');
+        return;
+      }
+      if (Almacen.usuarioExiste(usuario, correo)) {
+        setState(() => error = 'Ese usuario o correo ya está registrado.');
+        return;
+      }
+
+      final Usuario nuevo = Usuario(usuario, correo, clave);
+      Almacen.registrarUsuario(nuevo);
+      entrar(nuevo);
+    } else {
+      if (usuario.isEmpty || clave.isEmpty) {
+        setState(() => error = 'Completa usuario y contraseña.');
+        return;
+      }
+      final Usuario? encontrado = Almacen.iniciarSesion(usuario, clave);
+      if (encontrado == null) {
+        setState(() => error = 'Usuario o contraseña incorrectos.');
+        return;
+      }
+      entrar(encontrado);
+    }
   }
 
   Widget campo(String etiqueta, TextEditingController ctrl, IconData icono,
@@ -141,6 +202,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     campo('Confirmar contraseña', confirmarCtrl,
                         Icons.lock_outline,
                         esClave: true),
+                  if (error != null)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Text(
+                        error!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.redAccent),
+                      ),
+                    ),
                   const SizedBox(height: 8),
                   Container(
                     width: double.infinity,
@@ -154,13 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         shadowColor: Colors.transparent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const MainShell()),
-                        );
-                      },
+                      onPressed: enviar,
                       child: Text(
                         esRegistro ? 'Crear cuenta' : 'Iniciar sesión',
                         style: const TextStyle(
