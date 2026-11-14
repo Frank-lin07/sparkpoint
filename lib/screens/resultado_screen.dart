@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/moodboard.dart';
 import '../theme/app_colors.dart';
 import 'generando_screen.dart';
+import 'carpetas_screen.dart';
 
 class ResultadoScreen extends StatelessWidget {
   final Moodboard moodboard;
@@ -171,7 +172,11 @@ class ResultadoScreen extends StatelessWidget {
                       shadowColor: Colors.transparent,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
-                    onPressed: () => proximamente(context, 'Guardar'),
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CarpetasScreen(porGuardar: moodboard)),
+                    ),
                     child: const Text('Guardar moodboard',
                         style: TextStyle(
                             fontWeight: FontWeight.w700, color: Colors.black)),

@@ -3,16 +3,19 @@ import '../theme/app_colors.dart';
 import 'home_screen.dart';
 import 'crear_screen.dart';
 import 'generando_screen.dart';
+import 'carpetas_screen.dart';
 
 class MainShell extends StatefulWidget {
-  const MainShell({super.key});
+  final int pestanaInicial;
+
+  const MainShell({super.key, this.pestanaInicial = 0});
 
   @override
   State<MainShell> createState() => _MainShellState();
 }
 
 class _MainShellState extends State<MainShell> {
-  int indice = 0;
+  late int indice = widget.pestanaInicial;
 
   void irA(int nuevo) {
     setState(() {
@@ -38,7 +41,7 @@ class _MainShellState extends State<MainShell> {
               builder: (_) => GenerandoScreen(tema: tema, estilo: estilo)),
         );
       }),
-      proximamente('Carpetas'),
+      const CarpetasScreen(),
       proximamente('Perfil'),
     ];
 
