@@ -42,3 +42,12 @@ html { scroll-behavior: smooth; }
 .pie { background: var(--verde); }
 .pie a { color: var(--crema); }
 .pie-copy { background: rgba(0,0,0,.2) !important; }
+
+@media (max-width: 600px) {
+    .hero { padding: 32px 0; }
+    .hero h1 { font-size: 2rem; }
+    .hero-visual { height: 220px; margin-top: 24px; }
+    .btn-sec { margin: 12px 0 0; }
+    .seccion { padding: 40px 0; }
+    .servicio { min-height: 0; }
+}
