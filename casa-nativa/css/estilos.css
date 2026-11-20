@@ -28,3 +28,8 @@ html { scroll-behavior: smooth; }
 .btn-sec { color: var(--verde); border: 2px solid var(--verde); border-radius: 24px; text-transform: none; font-weight: 600; margin-left: 8px; }
 .hero-visual { height: 340px; border-radius: 24px; background: linear-gradient(160deg, #7FA38F, var(--verde)); display: flex; align-items: center; justify-content: center; }
 .hero-visual .material-icons { font-size: 120px; color: var(--crema); }
+
+.seccion { padding: 64px 0; }
+.intro { max-width: 620px; margin: 0 auto 40px; }
+.servicio { border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.08); min-height: 250px; }
+.servicio .material-icons { font-size: 48px; color: var(--verde); }
