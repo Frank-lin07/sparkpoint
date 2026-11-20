@@ -21,3 +21,10 @@ h1, h2, h3, .card-title, .brand-logo {
 .btn-cta:hover { background: #a9542d; }
 .sidenav li > a { font-weight: 600; }
 html { scroll-behavior: smooth; }
+
+.hero { padding: 64px 0; }
+.hero h1 { font-size: 2.6rem; line-height: 1.15; margin: 16px 0; }
+.etiqueta { color: var(--terracota); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: .85rem; }
+.btn-sec { color: var(--verde); border: 2px solid var(--verde); border-radius: 24px; text-transform: none; font-weight: 600; margin-left: 8px; }
+.hero-visual { height: 340px; border-radius: 24px; background: linear-gradient(160deg, #7FA38F, var(--verde)); display: flex; align-items: center; justify-content: center; }
+.hero-visual .material-icons { font-size: 120px; color: var(--crema); }
