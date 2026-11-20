@@ -92,7 +92,57 @@
         </div>
         </div>
     </section>
-    <section id="reserva"></section>
+    <section id="reserva" class="seccion reserva">
+        <div class="container">
+        <h2 class="center-align">Planea tu próxima escapada</h2>
+        <p class="center-align intro">Cuéntanos cuándo quieres visitarnos y nos pondremos en contacto contigo para confirmar disponibilidad.</p>
+        <form id="formReserva" class="card form-card">
+            <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">person</i>
+                <input id="nombre" type="text" required>
+                <label for="nombre">Nombre completo</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">mail</i>
+                <input id="correo" type="email" required>
+                <label for="correo">Correo electrónico</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">phone</i>
+                <input id="telefono" type="tel" required>
+                <label for="telefono">Teléfono</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">group</i>
+                <select id="huespedes" required>
+                <option value="" disabled selected>Elige una opción</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5 o más</option>
+                </select>
+                <label>Número de huéspedes</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">event</i>
+                <input id="llegada" type="text" class="datepicker" required>
+                <label for="llegada">Fecha de llegada</label>
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="material-icons prefix">event_available</i>
+                <input id="salida" type="text" class="datepicker" required>
+                <label for="salida">Fecha de salida</label>
+            </div>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">chat</i>
+                <textarea id="mensaje" class="materialize-textarea"></textarea>
+                <label for="mensaje">Mensaje o solicitud especial</label>
+            </div>
+            </div>
+            <div class="center-align">
+            <button class="btn-large waves-effect btn-cta" type="submit">Enviar solicitud</button>
+            </div>
+        </form>
+        </div>
+    </section>
     </main>
     <footer id="contacto"></footer>
 
