@@ -1,0 +1,16 @@
+:root {
+    --verde: #2F5D50;
+    --crema: #F6F1E7;
+    --terracota: #C8693B;
+    --texto: #23302B;
+}
+
+body {
+    background: var(--crema);
+    color: var(--texto);
+    font-family: 'Nunito', sans-serif;
+}
+
+h1, h2, h3, .card-title, .brand-logo {
+    font-family: 'Lora', serif;
+}
